@@ -1,0 +1,53 @@
+PAll.	Program	::=	[Prog];
+separator Prog "NEWLINE";
+
+PExp.	Prog	::=	Exp;
+PDef.	Prog	::=	Def;
+
+separator Exp "," ;
+coercions Exp 11;
+EOr.	Exp2	::=	Exp2 "||" Exp3;
+EAnd.	Exp3	::=	Exp3 "&&" Exp4;
+EEq.	Exp4	::=	Exp4 "==" Exp5;
+EDif.	Exp4	::=	Exp4 "!=" Exp5;
+EGt.	Exp5	::=	Exp5 ">" Exp6;
+EGte.	Exp5	::=	Exp5 ">=" Exp6;
+ELt.	Exp5	::=	Exp5 "<" Exp6;
+ELte.	Exp5	::=	Exp5 "<=" Exp6;
+EAdd.	Exp6	::=	Exp6 "+" Exp7;
+ESub.	Exp6	::=	Exp6 "-" Exp7;
+EMul.	Exp7	::=	Exp7 "*" Exp8;
+EDiv.	Exp7	::=	Exp7 "/" Exp8;
+ENeg.	Exp8	::=	"!" Exp9;
+EMin.	Exp8	::=	"-" Exp9;
+EEmp.	Exp8	::=	"pusty" Exp9;
+EHea.	Exp8	::=	"glowa" Exp9;
+ETai.	Exp8	::=	"ogon" Exp9;
+EId.	Exp10	::=	SIdent;
+EInt.	Exp10	::=	Integer;
+EBool.	Exp10	::=	Boolean;
+EDarr.	Exp10	::=	"[" [Exp] "]";
+EIf.	Exp10	::=	"Jezeli" "(" Exp "," Exp "," Exp ")";
+EFun.	Exp10	::=	"Fun" "(" [VDecl] ")" "->" Exp;
+EApp.	Exp9	::=	Exp9 Exp10;
+
+VDec.	VDecl	::=	SIdent ":" TType;
+separator nonempty VDecl "," ;
+
+separator SIdent "" ;
+TArr.	TType2	::=	"[" TType "]";
+TInt.	TType2	::=	"Int"; 
+TBool.	TType2	::=	"Bool";
+TFun.	TType	::=	TType2 "->" TType;
+
+coercions TType 2;
+
+DVar.	Def	::=	"Niech" SIdent "::" TType ";" SIdent [SIdent] "=" Exp;
+
+separator SIdent "" ;
+
+token SIdent (lower (letter | digit | '_')* );
+token UIdent (upper (letter | digit | '_')* );
+
+BFalse.	Boolean	::=	"Falsz";
+BTrue.	Boolean	::=	"Prawda";

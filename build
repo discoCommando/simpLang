@@ -1,0 +1,3 @@
+cd simp/
+bnfc -m -haskell ../simp.cf
+make
